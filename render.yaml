@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: personal-finance-chatbot
+    env: python
+    region: oregon  # Optional but recommended
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: GOOGLE_API_KEY
+        sync: false  # You'll set this manually in Render dashboard
+    # CRITICAL: Add disk for SQLite persistence
+    disk:
+      name: sqlite-data
+      mountPath: /opt/render/project/src/database
+      sizeGB: 1
+    # Auto-deploy settings
+    autoDeploy: true
+    branch: main

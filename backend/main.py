@@ -93,4 +93,8 @@ async def get_daily_spending_visual(user_id: int):
 # ADD THIS: Server startup for Render
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
+<<<<<<< Updated upstream
     uvicorn.run(app, host="0.0.0.0", port=port)
+=======
+    uvicorn.run(app, host="0.0.0.0", port=port)
+>>>>>>> Stashed changes
