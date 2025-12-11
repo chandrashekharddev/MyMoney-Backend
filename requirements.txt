@@ -1,14 +1,15 @@
-dotenv>=0.9.9
-fastapi>=0.124.0
-langchain>=1.1.2
-langchain-community>=0.4.1
-langchain-core>=1.1.1
-langchain-google-genai>=3.2.0
-matplotlib>=3.10.7
-pillow>=12.0.0
-pydantic>=2.12.5
-seaborn>=0.13.2
-uvicorn>=0.38.0
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-dotenv==1.0.0
+langchain==0.0.354
+langchain-google-genai==0.0.8
+langchain-community==0.0.10
+sqlite3
+matplotlib==3.8.2
+seaborn==0.13.0
+pillow==10.1.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
 
 
 
