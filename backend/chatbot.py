@@ -22,6 +22,12 @@ def get_today_ist():
     ist_time = datetime.utcnow() + ist_offset
     return ist_time.strftime("%Y-%m-%d")
 
+# After load_dotenv()
+google_api_key = os.getenv("GOOGLE_API_KEY")
+print(f"API Key loaded: {google_api_key}")
+print(f"API Key length: {len(google_api_key) if google_api_key else 0}")
+print(f"API Key starts with AIza? {google_api_key.startswith('AIza') if google_api_key else False}")
+
 today_ist = get_today_ist()
 
 
