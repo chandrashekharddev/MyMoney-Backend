@@ -3,7 +3,13 @@ from fastapi.middleware.cors import CORSMiddleware  # ADD THIS LINE
 from backend.chatbot import get_chatbot_response
 from fastapi.responses import StreamingResponse
 from io import BytesIO
+from pydantic import BaseModel
 import os
+
+
+# Request body model for the chatbot endpoint
+class ChatRequest(BaseModel):
+    user_input: str
 
 
 app = FastAPI(title="Personal Finance Chatbot API")
@@ -39,8 +45,8 @@ async def welcome():
 
 # Define an endpoint for chatbot interaction
 @app.post("/chatbot/{user_id}")
-async def chatbot_interaction(user_id: str, user_input: str):
-    response = get_chatbot_response(user_id, user_input)
+async def chatbot_interaction(user_id: str, request: ChatRequest):
+    response = get_chatbot_response(user_id, request.user_input)
     return {"response": response}
 
 # fetch memory for user_id
