@@ -28,7 +28,7 @@ def create_table():
 
 # Insert expense
 @tool
-def insert_expense(user_id, date, category, amount, description):
+def insert_expense(user_id: str, date: str, category: str, amount: float, description: str):
     """Insert a new expense into the expenses table."""
     conn = get_connection()
     cursor = conn.cursor()
@@ -55,7 +55,7 @@ def fetch_expense(user_id):
 
 
 @tool
-def fetch_expenses(user_id):
+def fetch_expenses(user_id: str):
     """Fetch all expenses."""
     conn = get_connection()
     cursor = conn.cursor()
@@ -68,7 +68,7 @@ def fetch_expenses(user_id):
 
 # Fetch expenses by category
 @tool
-def fetch_expenses_by_category(user_id, category):
+def fetch_expenses_by_category(user_id: str, category: str):
     """Fetch expenses by category.
     param category: Category of expenses to fetch"""
     
@@ -83,7 +83,7 @@ def fetch_expenses_by_category(user_id, category):
 
 # Fetch total expenses between dates 
 @tool
-def fetch_total_expenses_between_dates(user_id, start_date, end_date):
+def fetch_total_expenses_between_dates(user_id: str, start_date: str, end_date: str):
     """Fetch total expenses between two dates.
     param start_date: Start date in YYYY-MM-DD format
     param end_date: End date in YYYY-MM-DD format"""
@@ -102,7 +102,7 @@ def fetch_total_expenses_between_dates(user_id, start_date, end_date):
 
 # Fetch expenses between dates 
 @tool
-def fetch_expenses_between_dates(user_id,start_date, end_date):
+def fetch_expenses_between_dates(user_id: str, start_date: str, end_date: str):
     """Fetch expenses between two dates.
     param start_date: Start date in YYYY-MM-DD format
     param end_date: End date in YYYY-MM-DD format"""
@@ -121,7 +121,7 @@ def fetch_expenses_between_dates(user_id,start_date, end_date):
 
 # Fetch highest expense - Optional Enhancement
 @tool
-def fetch_highest_expense_day(user_id):
+def fetch_highest_expense_day(user_id: str):
     """Fetch the highest expense recorded."""
     conn = get_connection()
     cursor = conn.cursor()
@@ -190,6 +190,3 @@ def fetch_daily_spending(user_id):
 
 if __name__ == "__main__":
     create_table()
-    
-    
-    
