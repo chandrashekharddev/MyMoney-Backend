@@ -6,7 +6,6 @@ DB_PATH = "database/expense.db"
 def get_connection():
     return sqlite3.connect(DB_PATH, check_same_thread=False)
 
-# Create table
 # @tool
 def create_table():
     """Create the expenses table in the database if it doesn't exist."""
@@ -40,18 +39,6 @@ def insert_expense(user_id: str, date: str, category: str, amount: float, descri
     cursor.execute(q2, (user_id, date, category, amount, description))
     conn.commit()
     conn.close()
-
-# Fetch all expenses
-def fetch_expense(user_id):
-    """Fetch all expenses."""
-    conn = get_connection()
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT * FROM expenses WHERE user_id=?;",(user_id,))
-    rows = cursor.fetchall()
-
-    conn.close()
-    return rows
 
 
 @tool
@@ -114,71 +101,6 @@ def fetch_expenses_between_dates(user_id: str, start_date: str, end_date: str):
         "SELECT * FROM expenses WHERE user_id=? AND date BETWEEN ? AND ?;",
         (user_id, start_date, end_date)
     )
-    rows = cursor.fetchall()
-
-    conn.close()
-    return rows
-
-# Fetch highest expense - Optional Enhancement
-@tool
-def fetch_highest_expense_day(user_id: str):
-    """Fetch the highest expense recorded."""
-    conn = get_connection()
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT date,Sum(amount) FROM expenses WHERE id=? GROUP BY date ORDER BY amount DESC LIMIT 1;",(user_id,))
-    row = cursor.fetchone()
-
-    conn.close()
-    return row
-
-# Edit expense - Optional Enhancement
-@tool
-def edit_expense(user_id, amount=None, category=None, description=None):
-    """Edit an existing expense.
-    param id: ID of the expense to edit
-    param amount: New amount (optional)
-    param category: New category (optional)
-    param description: New description (optional)
-    """
-    
-    conn = get_connection()
-    cursor = conn.cursor()
-    cur.execute("""
-        UPDATE expenses 
-        SET amount=?, category=?, description=? 
-        WHERE user_id=? 
-    """, (amount, category, description, id))
-    conn.commit()
-    conn.close()
-    
-# Delete expense - Optional Enhancement
-@tool
-def delete_expense(user_id,date:None):
-    """Delete an expense by ID.
-    param id: ID of the expense to delete
-    param date: Date of the expense to delete (optional)
-    """
-    conn = get_connection()
-    cursor = conn.cursor()
-    if date:
-        cursor.execute("DELETE FROM expenses WHERE user_id=? AND date=? ;", (user_id,date))
-    else:
-        cursor.execute("DELETE FROM expenses WHERE user_id=? ;", (user_id,))
-    conn.commit()
-    conn.close()
-    
-#   ===============================================
-#   Fuctions to retrive the data for visualizations
-#   ===============================================
-
-# Fetch daily spending data
-def fetch_daily_spending(user_id):
-    """Fetch daily spending data."""
-    conn = get_connection()
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT date, SUM(amount) as total_amount FROM expenses WHERE id=? GROUP BY date ORDER BY date;",(user_id,))
     rows = cursor.fetchall()
 
     conn.close()
